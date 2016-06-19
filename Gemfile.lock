@@ -47,6 +47,9 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.2)
+    business_time (0.7.6)
+      activesupport (>= 3.1.0)
+      tzinfo
     byebug (9.0.5)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -66,6 +69,8 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.7.0)
+    faker (1.6.3)
+      i18n (~> 0.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     has_barcode (0.2.3)
@@ -192,9 +197,11 @@ PLATFORMS
 DEPENDENCIES
   barby
   bootstrap-sass (~> 3.3.6)
+  business_time
   byebug
   coffee-rails (~> 4.1.0)
   devise
+  faker
   has_barcode
   jbuilder (~> 2.0)
   jquery-rails

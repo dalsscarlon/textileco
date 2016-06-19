@@ -8,6 +8,8 @@ class Employee < ActiveRecord::Base
 	validates_presence_of :first_name, :last_name, :email
 	scope :not_erased, -> { where( "status != 0") }
 
+	has_many :attendances
+
 	after_save :set_barcode, :on => :create 
 	
 	def get_barcode(number)
@@ -19,6 +21,11 @@ class Employee < ActiveRecord::Base
 
 		barcode.to_svg(xdim:2, height:60)
 	end
+
+	def has_checked?(date, types)
+		attendances.where(created_at: date, attendance_type: types).any?
+	end
+
 	private
 	def set_barcode
 	    barcode_text = Time.now.to_i.to_s + "#{id}"
