@@ -5,7 +5,7 @@ class Employee < ActiveRecord::Base
               :type => :code_128,
               :value => Proc.new { |p| p.barcode }
 	enum status: [ :erased, :active, :inactive ]
-
+	validates_presence_of :first_name, :last_name, :email
 	scope :not_erased, -> { where( "status != 0") }
 
 	after_save :set_barcode, :on => :create 
