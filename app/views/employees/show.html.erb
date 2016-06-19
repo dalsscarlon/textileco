@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="col-lg-10">
+		<h1>Employee</h1>
+	</div>
+	<div class="col-lg-2">
+		<%= link_to 'Edit', edit_employee_path(@employee) %> |
+		<%= link_to 'Back', employees_path %>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-lg-4">
+		<div class="media">
+			<!-- <div class="media-left media-middle">
+				<a href="#">
+				  <img class="media-object" src="..." alt="...">
+				</a>
+			</div> -->
+			<div class="media-body">
+				<h4 class="media-heading"><%= @employee.first_name %> <%= @employee.last_name %></h4>
+				<p><%= @employee.email %></p>
+
+				<%= @employee.get_barcode(@employee.barcode).html_safe %>
+				
+			</div>
+		</div>
+		
+	</div>
+</div>
