@@ -1,4 +1,4 @@
 class DashboardController < ApplicationController
-	# @employees_late = Employee.all.map { |x| x.attendances.where(created_at: (1.month.ago..Time.current), attendance_type: 2).select("employee_id").distinct.count }
-	# @checks_late = Employee.all.attendances.where(created_at: (1.month.ago..Time.current), attendance_type: 2).count
+	@checks_late = Employee.employees_with_type((1.month.ago..Time.current), 2, true)
+	@delays = Employee.employees_with_type((1.month.ago..Time.current), 2, false)
 end

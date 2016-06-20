@@ -30,6 +30,25 @@ class Employee < ActiveRecord::Base
 		attendances.where(created_at: day.beginning_of_day..day.end_of_day, attendance_type: types)
 	end
 
+	def count_checks(range_days, type)
+		attendances.where(created_at: range_days, attendance_type: type).count
+	end
+
+	def self.employees_with_type(range_days, type, distinct_employees)
+		employees = 0;
+		delays = 0;
+		Employee.all.each do |employee|
+			count_lates = employee.count_checks(range_days, type)
+			employees += 1 if count_lates > 0
+			delays += count_lates if !count_lates.nil?
+		end
+		if distinct_employees
+			return employees 
+		else
+			return delays
+		end
+	end
+
 	private
 	def set_barcode
 	    barcode_text = Time.now.to_i.to_s + "#{id}"
