@@ -12,23 +12,24 @@
     last_name = Faker::Name.last_name
     email = Faker::Internet.email
     
-    employee = Employee.create({
-      first_name:     first_name,
-      last_name:      last_name,
-      email:          email
-   	})
+    employee = Employee.create({ first_name: first_name, last_name: last_name, email: email	})
 
+    
    	## attendances
-   	((35..60).to_a.sample).times do |v|
-   		workday = Time.current.in_time_zone.ago((v).days)
-
-   		## checkin  between 20 min before be late to 20 min late
-   		extra_time = (-20*60..20*60).to_a.sample
-   		checkin_time = Time.parse(BusinessTime::Config.beginning_of_workday).seconds_since_midnight + extra_time
-   		checkin_time = Time.at(checkin_time).utc
-   		employee.attendances.create({
-          created_at: workday.change(hour: checkin_time.hour, min: checkin_time.min, sec: checkin_time.sec)
-        })
+   	rounds = (35..60).to_a.sample
+   	# taking one random day off
+   	day_off = rand(rounds)
+   	(rounds).times do |v|
+   		workday = (v).business_days.ago
+   		if day_off != v
+	   		## checkin  between 20 min before be late to 20 min late
+	   		extra_time = (-20*60..20*60).to_a.sample
+	   		checkin_time = Time.parse(BusinessTime::Config.beginning_of_workday).seconds_since_midnight + extra_time
+	   		checkin_time = Time.at(checkin_time).utc
+	   		employee.attendances.create({
+	          created_at: workday.change(hour: checkin_time.hour, min: checkin_time.min, sec: checkin_time.sec)
+	        })
+	    end
 
    	end
 end
