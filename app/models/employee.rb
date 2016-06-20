@@ -22,8 +22,8 @@ class Employee < ActiveRecord::Base
 		barcode.to_svg(xdim:2, height:60)
 	end
 
-	def has_checked?(date, types)
-		attendances.where(created_at: date, attendance_type: types).any?
+	def has_checked?(day, types)
+		attendances.where(created_at: day.beginning_of_day..day.end_of_day, attendance_type: types).any?
 	end
 
 	private

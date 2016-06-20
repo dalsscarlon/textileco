@@ -29,6 +29,14 @@
 	   		employee.attendances.create({
 	          created_at: workday.change(hour: checkin_time.hour, min: checkin_time.min, sec: checkin_time.sec)
 	        })
+
+	        ## checkout  between 20 min before time to 20 min late
+	   		extra_time = (-5*60..20*60).to_a.sample
+	   		checkout_time = Time.parse(BusinessTime::Config.end_of_workday).seconds_since_midnight + extra_time
+	   		checkout_time = Time.at(checkout_time).utc
+	   		employee.attendances.create({
+	          created_at: workday.change(hour: checkout_time.hour, min: checkout_time.min, sec: checkout_time.sec)
+	        })
 	    end
 
    	end
