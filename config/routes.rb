@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :employees
   match '/clock' => 'application#clock', via: :post
+  root 'dashboard#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
