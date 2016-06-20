@@ -26,6 +26,10 @@ class Employee < ActiveRecord::Base
 		attendances.where(created_at: day.beginning_of_day..day.end_of_day, attendance_type: types).any?
 	end
 
+	def checks_in_day(day, types)
+		attendances.where(created_at: day.beginning_of_day..day.end_of_day, attendance_type: types)
+	end
+
 	private
 	def set_barcode
 	    barcode_text = Time.now.to_i.to_s + "#{id}"

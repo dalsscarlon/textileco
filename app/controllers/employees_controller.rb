@@ -11,6 +11,8 @@ class EmployeesController < ApplicationController
   # GET /employees/1
   # GET /employees/1.json
   def show
+    # get attendances
+    @attendances = @employee.attendances.where(created_at: (31.business_days.ago..1.business_day.ago))
   end
 
   # GET /employees/new
