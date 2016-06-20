@@ -3,7 +3,7 @@ class Attendance < ActiveRecord::Base
 
 	belongs_to :employee
 
-	before_save :set_attendance_type, on: :create
+	before_save :set_attendance_type
 
 	def set_attendance_type
 		checktime = self.created_at.strftime('%I:%M %p')
